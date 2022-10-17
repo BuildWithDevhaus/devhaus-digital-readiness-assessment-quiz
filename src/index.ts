@@ -4,6 +4,7 @@ import { createApp } from 'petite-vue';
 import waitForAnimationsLoaded from '$utils/animations/waitForAnimationsLoaded';
 
 import { initObject, store } from './app/initApp';
+import wrapUp from './app/wrapUp';
 
 const wf = window.Webflow ?? [];
 wf.push(() => {
@@ -32,22 +33,12 @@ wf.push(() => {
       this.possibleMaxScore = currentPoints;
       //bind display of main-cta button with calculated value
     },
-    wrapUp() {
-      if (this.store.scorePercentage >= 0 && this.store.scorePercentage <= 60) {
-        this.finalVerdict = 'a Noob';
-        return;
-      }
-      if (this.store.scorePercentage > 60 && this.store.scorePercentage <= 80) {
-        this.finalVerdict = 'a decent Marketer';
-        return;
-      }
-      if (this.store.scorePercentage > 80) {
-        this.finalVerdict = 'a Pro Marketer';
-      }
+    quizFinished() {
+      wrapUp(this.store.scorePercentage);
     },
     mountQuestion(index: number) {
       if (index >= this.questions.length) {
-        this.wrapUp();
+        this.quizFinished();
       }
       this.store.i = index;
     },
