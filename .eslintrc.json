@@ -1,1 +1,11 @@
-{ "extends": ["@finsweet"] }
+{
+  "extends": ["@finsweet"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "ignorePatterns": ["**/types/*.d.ts"]
+}
