@@ -21,7 +21,6 @@ wf.push(() => {
       }) as AnimationItem;
       anim.pause();
       this.animWrapper = anim.wrapper;
-      this.animWrapper.style.display = 'none';
       this.animConfetti = anim;
       let currentPoints = 0;
       this.questions.forEach((q) => {
@@ -39,42 +38,41 @@ wf.push(() => {
       this.mountQuestion(0);
     },
     quizFinished() {
+      this.store.scorePercentage = Math.round(this.store.scorePercentage);
       wrapUp(this.store.scorePercentage);
     },
     mountQuestion(index: number) {
-      if (index >= this.questions.length) {
+      const totalQuestions = this.questions.length;
+      this.store.currentQuestion = `Question ${index + 1} of ${totalQuestions}`;
+      if (index >= totalQuestions) {
         this.quizFinished();
+      } else if (index + 1 / 2 >= totalQuestions / 2 && this.halfwayIsShown === false) {
+        this.showHalfway = true;
+        this.showConfetti();
       }
       this.store.i = index;
     },
-    checkAnswer(e: Event, index: number) {
-      const elem = e.currentTarget as HTMLElement;
+    closeHalfway() {
+      this.showHalfway = false;
+      this.halfwayIsShown = true;
+    },
+    showConfetti() {
       const animWrapper = this.animWrapper as HTMLElement;
       const animConfetti = this.animConfetti as AnimationItem;
-      const correctIcon = (elem as HTMLElement).querySelector('.is-correct-icon') as HTMLElement;
-
+      animWrapper.style.display = 'block';
+      animConfetti.goToAndPlay(0);
+      const duration = animConfetti.getDuration();
+      setTimeout(() => {
+        animWrapper.style.display = 'none';
+      }, duration * 1000);
+    },
+    checkAnswer(index: number) {
       if (index === this.questions[this.store.i].correctAnswer) {
-        correctIcon.style.display = 'block';
-        correctIcon.classList.add('is-correct');
         this.store.scorePercentage = this.store.scorePercentage + (1 / this.possibleMaxScore) * 100;
-        animWrapper.style.display = 'block';
-        animConfetti.goToAndPlay(0);
-      } else {
-        elem.classList.add('is-wrong');
-        (elem.querySelector('.is-wrong-icon') as HTMLElement).style.display = 'block';
       }
 
       setTimeout(() => {
         this.mountQuestion(this.store.i + 1);
-        //reset all classes
-        const allAnswers = document.querySelectorAll('.question-block');
-        animWrapper.style.display = 'none';
-        allAnswers.forEach((a) => {
-          a.classList.remove('is-correct');
-          a.classList.remove('is-wrong');
-          (a.querySelector('.is-correct-icon') as HTMLElement).style.display = 'none';
-          (a.querySelector('.is-wrong-icon') as HTMLElement).style.display = 'none';
-        });
       }, 1000);
     },
   };

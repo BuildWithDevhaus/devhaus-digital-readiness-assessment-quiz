@@ -5,6 +5,7 @@ import { reactive } from 'petite-vue';
 export const store = reactive({
   scorePercentage: 0,
   maxScorePercentage: 100,
+  currentQuestion: '',
   i: 0,
 });
 
@@ -60,11 +61,16 @@ const questions = [
   },
   {
     type: 1,
-    correctAnswer: 0,
-    question: `Which of these tool will help you efficiently view your Marketing Data for free and without hassle on report building?`,
-    subQuestion: `<p><b>Now you’ll need to put on your Analyst hat.</b></p><br/>
-    You’ve been running some Meta & Google search ads for the company to drive awareness and acquisition to your organisation’s website.`,
-    answers: ['Snov.io', 'Google Data Studio', 'Pantone Notebook', 'Figma Jam'],
+    correctAnswer: 3,
+    question: `Which one of these Frameworks/Funnel are used by modern day Growth teams to scale their organisation?`,
+    answers: ['DCF Framework', 'Pirate Funnel', 'AIDA Funnel', 'RACE Framework'],
+  },
+  {
+    type: 1,
+    correctAnswer: 2,
+    question: `Which one of these platform is known to be a headless CMS?`,
+    subQuestion: `You need to deploy Marketing campaigns with beautiful designs - quickly, at scale and without any code, most marketers usually use a CMS for that.`,
+    answers: ['Wordpress', 'Wagtail', 'Webflow', 'Shopcada'],
   },
 ];
 
@@ -75,4 +81,6 @@ export const initObject = {
   animWrapper: null as HTMLElement | null,
   animConfetti: null as AnimationItem | null,
   showNotes: false,
+  showHalfway: false,
+  halfwayIsShown: false,
 };
