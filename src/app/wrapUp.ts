@@ -1,11 +1,12 @@
 export default function wrapUp(score: number) {
-  if (score >= 0 && score <= 60) {
-    return 'a Noob';
+  if (score > 74 && score <= 100) {
+    return 'a Digital Leader. Well done!';
   }
-  if (score > 60 && score <= 80) {
-    return 'a decent Marketer';
+  if (score > 49 && score <= 74) {
+    return 'a Digital Performer. Well done!';
   }
-  if (score > 80) {
-    return 'a Pro Marketer';
+  if (score > 24 && score <= 49) {
+    return 'a Digital Literate';
   }
+  return 'a Digital Starter';
 }

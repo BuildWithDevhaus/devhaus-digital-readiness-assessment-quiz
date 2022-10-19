@@ -77,7 +77,7 @@ const questions = [
 export const initObject = {
   possibleMaxScore: 0,
   questions: questions,
-  finalVerdict: 'CDP expert',
+  finalVerdict: 'Digital Starter',
   animWrapper: null as HTMLElement | null,
   animConfetti: null as AnimationItem | null,
   showNotes: false,

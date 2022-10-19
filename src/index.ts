@@ -39,7 +39,7 @@ wf.push(() => {
     },
     quizFinished() {
       this.store.scorePercentage = Math.round(this.store.scorePercentage);
-      wrapUp(this.store.scorePercentage);
+      this.finalVerdict = wrapUp(this.store.scorePercentage);
     },
     mountQuestion(index: number) {
       const totalQuestions = this.questions.length;
@@ -66,11 +66,10 @@ wf.push(() => {
         animWrapper.style.display = 'none';
       }, duration * 1000);
     },
-    checkAnswer(index: number) {
+    checkAnswer(_: Event, index: number) {
       if (index === this.questions[this.store.i].correctAnswer) {
-        this.store.scorePercentage = this.store.scorePercentage + (1 / this.possibleMaxScore) * 100;
+        this.store.scorePercentage += (1 / this.possibleMaxScore) * 100;
       }
-
       setTimeout(() => {
         this.mountQuestion(this.store.i + 1);
       }, 1000);
