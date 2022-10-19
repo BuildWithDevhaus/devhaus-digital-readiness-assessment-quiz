@@ -16,11 +16,13 @@ specifiers:
   eslint: ^8.25.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.2.1
+  petite-vue: ^0.4.1
   prettier: ^2.7.1
   typescript: ^4.8.4
 
 dependencies:
   '@finsweet/ts-utils': 0.33.2
+  petite-vue: 0.4.1
 
 devDependencies:
   '@changesets/changelog-git': 0.1.13
@@ -2408,6 +2410,10 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
     dev: true
+
+  /petite-vue/0.4.1:
+    resolution: {integrity: sha512-/gtYKQe9r1OV4IEwn2RsPXAHgFTe1nVq4QhldAP6/l8DSe9I754K6Oe1+Ff6dbnT5P8X2XP7PTUZkGRz5uFnFQ==}
+    dev: false
 
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
