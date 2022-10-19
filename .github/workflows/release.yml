@@ -18,5 +18,5 @@ jobs:
       - run: git add .
       - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
       - run: git config --global user.name "github-actions[bot]"
-      - run: git commit -m "index.js build"
+      - run: git commit -m "[Automated] index.js build"
       - run: git push origin master
