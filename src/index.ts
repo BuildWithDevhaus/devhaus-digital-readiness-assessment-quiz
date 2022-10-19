@@ -29,7 +29,12 @@ wf.push(() => {
         if (q.type === 4) currentPoints += 2;
       });
       this.possibleMaxScore = currentPoints;
+      this.totalQuestions = this.questions.length;
       this.mountQuestion(-1);
+      //on resize window, resize the progress bar
+      window.addEventListener('resize', () => {
+        this.setProgressBar();
+      });
     },
     startQuiz() {
       this.showNotes = true;
@@ -41,12 +46,21 @@ wf.push(() => {
       this.store.scorePercentage = Math.round(this.store.scorePercentage);
       this.finalVerdict = wrapUp(this.store.scorePercentage);
     },
+    setProgressBar() {
+      const progressBarBottom = document.querySelector('.progress-bar-bottom');
+      //get progress bar width
+      const baseProgressBarWidth = progressBarBottom?.clientWidth ?? 0; //100%
+      const percentage =
+        this.currentQuestionIndex <= 0 ? 0 : this.currentQuestionIndex / this.totalQuestions;
+      this.store.progressBarWidth = baseProgressBarWidth * percentage;
+    },
     mountQuestion(index: number) {
-      const totalQuestions = this.questions.length;
-      this.store.currentQuestion = `Question ${index + 1} of ${totalQuestions}`;
-      if (index >= totalQuestions) {
+      this.currentQuestionIndex = index;
+      this.setProgressBar();
+      this.store.currentQuestion = `Question ${index + 1} of ${this.totalQuestions}`;
+      if (index >= this.totalQuestions) {
         this.quizFinished();
-      } else if (index + 1 / 2 >= totalQuestions / 2 && this.halfwayIsShown === false) {
+      } else if (index + 1 / 2 >= this.totalQuestions / 2 && this.halfwayIsShown === false) {
         this.showHalfway = true;
         this.showConfetti();
       }
