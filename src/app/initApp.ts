@@ -6,6 +6,7 @@ export const store = reactive({
   scorePercentage: 0,
   maxScorePercentage: 100,
   currentQuestion: '',
+  progressBarWidth: 0,
   i: 0,
 });
 
@@ -83,4 +84,6 @@ export const initObject = {
   showNotes: false,
   showHalfway: false,
   halfwayIsShown: false,
+  currentQuestionIndex: 0,
+  totalQuestions: 0,
 };
