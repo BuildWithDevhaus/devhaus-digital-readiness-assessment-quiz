@@ -9,7 +9,6 @@ import wrapUp from './app/wrapUp';
 const wf = window.Webflow ?? [];
 wf.push(() => {
   const app = {
-    // exposed to all expressions
     store,
     ...initObject,
     async mounted() {
@@ -22,8 +21,8 @@ wf.push(() => {
       }) as AnimationItem;
       anim.pause();
       this.animWrapper = anim.wrapper;
+      this.animWrapper.style.display = 'none';
       this.animConfetti = anim;
-      anim.wrapper.style.display = 'none';
       let currentPoints = 0;
       this.questions.forEach((q) => {
         if (q.type === 1 || q.type === 2) currentPoints += 1;
@@ -31,7 +30,13 @@ wf.push(() => {
         if (q.type === 4) currentPoints += 2;
       });
       this.possibleMaxScore = currentPoints;
-      //bind display of main-cta button with calculated value
+      this.mountQuestion(-1);
+    },
+    startQuiz() {
+      this.showNotes = true;
+    },
+    reallyStartQuiz() {
+      this.mountQuestion(0);
     },
     quizFinished() {
       wrapUp(this.store.scorePercentage);
