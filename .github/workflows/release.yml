@@ -1,13 +1,38 @@
-name: Release
+# name: Release
 
+# on:
+#   push:
+#     branches:
+#       - master
+#       - main
+
+name: Build File in Master Branch
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
     branches:
       - master
-      - main
-
 jobs:
-  release:
-    uses: finsweet/workflow-release/.github/workflows/release.yml@main
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  build-file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - uses: npm install -g pnpm
+      - run: pnpm install
+      - run: pnpm build
+      - run: git add .
+      - run: git commit -m "index.js build"
+      - run: git push origin master
+# name: learn-github-actions
+# run-name: ${{ github.actor }} is learning GitHub Actions
+# on: [push]
+# jobs:
+#   check-bats-version:
+#     runs-on: ubuntu-latest
+#     steps:
+#
+#       - run: npm install -g bats
+#       - run: bats -v
