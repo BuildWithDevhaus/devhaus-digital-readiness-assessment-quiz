@@ -86,7 +86,7 @@ wf.push(() => {
       }
       setTimeout(() => {
         this.mountQuestion(this.store.i + 1);
-      }, 1000);
+      }, 300);
     },
   };
   createApp(app).mount('#app');
