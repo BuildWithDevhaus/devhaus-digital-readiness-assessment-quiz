@@ -15,9 +15,9 @@ jobs:
       - run: pnpm install
       - run: pnpm build
       - run: git add .
-      - run: git tag -a v0.0.1 -m "v0.0.1"
       - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
       - run: git config --global user.name "github-actions[bot]"
+      - run: git tag -a v0.0.1 -m "v0.0.1"
       - run: git commit -m "[Automated] index.js build"
       - run: git push origin master
       - uses: 'marvinpinto/action-automatic-releases@latest'
