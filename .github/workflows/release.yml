@@ -4,22 +4,13 @@ on:
     branches:
       - master
 jobs:
-  build-file:
+  do-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - run: npm install -g pnpm
-      - run: pnpm install
-      - run: pnpm build
-      - run: git add .
-      - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      - run: git config --global user.name "github-actions[bot]"
-      - run: git commit -m "[Automated] index.js build"
-      - run: git tag -a v1.0.1 -m "v1.0.1"
-      - run: git push origin master
       - uses: 'marvinpinto/action-automatic-releases@latest'
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
