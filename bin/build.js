@@ -22,7 +22,6 @@ const defaultSettings = {
     js: `/* 
           @author: Barjuan Davis -- Devhaus Pte Ltd
           @date: ${new Date().toDateString()}
-          @version: 1.0.0
         */`,
   },
 };
