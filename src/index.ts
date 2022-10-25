@@ -5,13 +5,16 @@ import waitForAnimationsLoaded from '$utils/animations/waitForAnimationsLoaded';
 
 import { initObject, store } from './app/initApp';
 import wrapUp from './app/wrapUp';
+import type App from './types/app';
 
 const wf = window.Webflow ?? [];
+let app: App;
 wf.push(() => {
-  const app = {
+  app = {
     store,
     ...initObject,
     async mounted() {
+      const loadingSection = document.querySelector('.loading-section') as HTMLElement;
       const { lottie } = wf.require('lottie');
       const l = lottie as LottiePlayer;
       const anims = l.getRegisteredAnimations();
@@ -20,8 +23,8 @@ wf.push(() => {
         return a.wrapper?.id === 'confetti';
       }) as AnimationItem;
       anim.pause();
-      this.animWrapper = anim.wrapper;
-      this.animConfetti = anim;
+      this.animWrapper = anim.wrapper as HTMLElement;
+      this.animConfetti = anim as AnimationItem;
       let currentPoints = 0;
       this.questions.forEach((q) => {
         if (q.type === 1 || q.type === 2) currentPoints += 1;
@@ -35,6 +38,14 @@ wf.push(() => {
       window.addEventListener('resize', () => {
         this.setProgressBar();
       });
+
+      setTimeout(() => {
+        loadingSection.style.opacity = '0';
+      }, 2000);
+
+      setTimeout(() => {
+        loadingSection.style.display = 'none';
+      }, 2200);
     },
     startQuiz() {
       this.showNotes = true;
@@ -88,6 +99,6 @@ wf.push(() => {
         this.mountQuestion(this.store.i + 1);
       }, 300);
     },
-  };
+  } as App;
   createApp(app).mount('#app');
 });
