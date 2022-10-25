@@ -6,6 +6,7 @@
     "paths": {
       "$utils/*": ["src/utils/*"]
     },
-    "importsNotUsedAsValues": "preserve"
+    "importsNotUsedAsValues": "preserve",
+    "lib": ["esnext", "dom", "es5", "es6"]
   }
 }
