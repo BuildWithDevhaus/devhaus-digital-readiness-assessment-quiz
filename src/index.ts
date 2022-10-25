@@ -1,4 +1,3 @@
-import type { AnimationItem, LottiePlayer } from 'lottie-web';
 import { createApp } from 'petite-vue';
 
 import { initObject, store } from './app/initApp';
@@ -10,7 +9,7 @@ import onShowConfetti from './app/onShowConfetti';
 import wrapUp from './app/wrapUp';
 import type App from './types/app';
 
-const wf = window.Webflow ?? [];
+const wf = window.Webflow || [];
 let app: App;
 wf.push(() => {
   app = {

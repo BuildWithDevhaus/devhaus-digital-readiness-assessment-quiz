@@ -5,8 +5,8 @@ import waitForAnimationsLoaded from '$utils/animations/waitForAnimationsLoaded';
 
 export default async function onMounted(app: App, wf: Window['Webflow']) {
   const loadingSection = document.querySelector('.loading-section') as HTMLElement;
-  const { lottie } = wf.require('lottie');
-  const l = lottie as LottiePlayer;
+  const lottieee = wf?.require?.('lottie');
+  const l = lottieee.lottie as LottiePlayer;
   const anims = l.getRegisteredAnimations();
   await waitForAnimationsLoaded(anims);
   const anim = anims.find((a) => {
