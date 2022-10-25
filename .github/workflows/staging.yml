@@ -1,4 +1,4 @@
-name: Build File in Master Branch
+name: Build File in Staging Branch
 on:
   push:
     branches:
@@ -6,6 +6,7 @@ on:
 jobs:
   build-file:
     runs-on: ubuntu-latest
+    if: github.actor == 'davisdevhaus'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -18,5 +19,5 @@ jobs:
       - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
       - run: git config --global user.name "github-actions[bot]"
       - run: git commit -m "[Automated] index.js build"
-      - run: git tag -a v1.0.2 -m "v1.0.2"
-      - run: git push origin master
+      - run: git tag -a v1.0.3 -m "v1.0.3"
+      - run: git push origin staging

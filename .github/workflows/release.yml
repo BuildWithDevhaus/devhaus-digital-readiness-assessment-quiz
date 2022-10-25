@@ -1,4 +1,4 @@
-name: Build File in Master Branch
+name: Merge and Release in Master Branch
 on:
   push:
     branches:
@@ -6,6 +6,7 @@ on:
 jobs:
   do-release:
     runs-on: ubuntu-latest
+    if: github.actor == 'davisdevhaus'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -15,4 +16,4 @@ jobs:
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: false
-          automatic_release_tag: 'v1.0.1'
+          automatic_release_tag: 'v1.0.3'
