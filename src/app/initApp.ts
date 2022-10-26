@@ -86,4 +86,5 @@ export const initObject = {
   halfwayIsShown: false,
   currentQuestionIndex: 0,
   totalQuestions: 0,
+  showEmailSection: false,
 };
