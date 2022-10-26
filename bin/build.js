@@ -20,9 +20,9 @@ const defaultSettings = {
   entryPoints,
   footer: {
     js: `/* 
-          @author: Barjuan Davis -- Devhaus Pte Ltd
-          @date: ${new Date().toDateString()}
-        */`,
+    @author: Barjuan Davis -- Devhaus Pte Ltd
+    @date: ${new Date().toDateString()}, ${new Date().toTimeString()}
+    */`,
   },
 };
 
