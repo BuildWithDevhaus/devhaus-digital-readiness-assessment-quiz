@@ -19,8 +19,10 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
   //console.log(data);
 
   const button = document.getElementById('quiz-result-submit-button') as HTMLButtonElement;
+  button.value = 'Submitting...';
   button.disabled = true;
-  button.innerText = 'Submitting...';
+  button.style.cursor = 'not-allowed';
+  button.style.backgroundColor = '#e6e6e6';
 
   const response = await fetch(webhookLink, {
     method: 'POST',
@@ -31,17 +33,18 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
   });
 
   //console.log(response);
-
-  if (response.status === 200) {
-    triggerSegmentEvent('Digital Readiness Assessment Quiz Completed', {
-      score: app.store.scorePercentage,
-      finalVerdict: app.finalVerdict,
-    });
-    triggerSegmentIdentify({
-      email: data.email,
-    });
-    app.showEmailSection = false;
-    app.quizFinished();
-    triggerSegmentEvent();
-  }
+  setTimeout(() => {
+    if (response.status === 200) {
+      triggerSegmentEvent('Digital Readiness Assessment Quiz Completed', {
+        score: app.store.scorePercentage,
+        finalVerdict: app.finalVerdict,
+      });
+      triggerSegmentIdentify({
+        email: data.email,
+      });
+      app.showEmailSection = false;
+      app.quizFinished();
+      triggerSegmentEvent();
+    }
+  }, 1000);
 }
