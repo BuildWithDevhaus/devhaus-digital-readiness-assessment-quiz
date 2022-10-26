@@ -1,11 +1,14 @@
 import { createApp } from 'petite-vue';
 
+import triggerSegmentEvent from '$utils/Segment/triggerSegmentEvent';
+
 import { initObject, store } from './app/initApp';
 import onCheckAnswer from './app/onCheckAnswer';
 import onMountQuestion from './app/onMountQuestion';
 import onMounted from './app/onMounted';
 import onSetProgressBar from './app/onSetProgressBar';
 import onShowConfetti from './app/onShowConfetti';
+import onSubmit from './app/onSubmit';
 import wrapUp from './app/wrapUp';
 import type App from './types/app';
 
@@ -16,7 +19,8 @@ wf.push(() => {
     store,
     ...initObject,
     async mounted() {
-      onMounted(app, wf);
+      onMounted(this, wf);
+      triggerSegmentEvent('Digital Readiness Assessment Quiz Initiated', {});
     },
     startQuiz() {
       this.showNotes = true;
@@ -29,20 +33,27 @@ wf.push(() => {
       this.finalVerdict = wrapUp(this.store.scorePercentage);
     },
     setProgressBar() {
-      onSetProgressBar(app);
+      onSetProgressBar(this);
     },
     mountQuestion(index: number) {
-      onMountQuestion(app, index);
+      onMountQuestion(this, index);
+      if (index >= 0 && index < this.totalQuestions)
+        triggerSegmentEvent(`Digital Readiness Assessment Quiz Question ${index + 1} Viewed`, {
+          question: this.questions[index].question,
+        });
     },
     closeHalfway() {
       this.showHalfway = false;
       this.halfwayIsShown = true;
     },
     showConfetti() {
-      onShowConfetti(app);
+      onShowConfetti(this);
     },
     checkAnswer(_: Event, index: number) {
-      onCheckAnswer(app, index);
+      onCheckAnswer(this, index);
+    },
+    async submitEmail(e: Event) {
+      await onSubmit(this, e as SubmitEvent);
     },
   } as App;
   createApp(app).mount('#app');

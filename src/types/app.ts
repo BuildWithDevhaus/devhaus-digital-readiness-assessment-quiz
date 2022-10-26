@@ -19,7 +19,7 @@ export default interface App {
   animWrapper: HTMLElement;
   animConfetti: AnimationItem;
   questions: Question[];
-
+  showEmailSection: boolean;
   startQuiz: () => void;
   reallyStartQuiz: () => void;
   quizFinished: () => void;
@@ -29,5 +29,6 @@ export default interface App {
   showConfetti: () => void;
   checkAnswer: (_: Event, index: number) => void;
   mounted: () => void;
+  submitEmail: (e: Event) => void;
   //this type is extendable
 }
