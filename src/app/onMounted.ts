@@ -7,7 +7,7 @@ export default async function onMounted(
   app: App
   //wf: Window['Webflow']
 ) {
-  const loadingSection = document.getElementById('loading-section') as HTMLElement;
+  //const loadingSection = document.getElementById('loading-section') as HTMLElement;
   // const lottieee = wf?.require?.('lottie');
   // const l = lottieee.lottie as LottiePlayer;
   // const anims = l.getRegisteredAnimations();

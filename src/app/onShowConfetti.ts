@@ -1,4 +1,4 @@
-import { AnimationItem } from 'lottie-web';
+//import { AnimationItem } from 'lottie-web';
 import App from 'src/types/app';
 
 export default function onShowConfetti(app: App) {

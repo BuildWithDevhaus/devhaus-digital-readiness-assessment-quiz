@@ -1,8 +1,8 @@
-import anime from 'animejs';
 import { createApp } from 'petite-vue';
 
 import triggerSegmentEvent from '$utils/Segment/triggerSegmentEvent';
-import waitForElementLoaded from '$utils/waitForElementLoaded';
+import onSectionTransitionIn from '$utils/animations/onSectionTransitionIn';
+import onSectionTransitionOut from '$utils/animations/onSectionTransitionOut';
 
 import { initObject, store } from './app/initApp';
 import onCheckAnswer from './app/onCheckAnswer';
@@ -25,15 +25,16 @@ wf.push(() => {
         this
         // wf
       );
-      await this.sectionTransitionIn('#first-page');
+      await this.sectionTransitionIn('#first-page', 1000);
       triggerSegmentEvent('Digital Readiness Assessment Quiz Initiated', {});
     },
     async startQuiz() {
-      await this.sectionTransitionOut('#first-page');
+      await this.sectionTransitionOut('#first-page', 1000);
       this.showNotes = true;
-      await this.sectionTransitionIn('#second-page');
+      await this.sectionTransitionIn('#second-page', 1000);
     },
-    reallyStartQuiz() {
+    async reallyStartQuiz() {
+      await this.sectionTransitionOut('#second-page', 2000);
       this.mountQuestion(0);
     },
     quizFinished() {
@@ -64,31 +65,11 @@ wf.push(() => {
     async submitEmail(e: Event) {
       await onSubmit(this, e as SubmitEvent);
     },
-    async sectionTransitionIn(selector: string) {
-      const target = (await waitForElementLoaded(selector)) as HTMLElement;
-      console.log(target);
-      if (target) {
-        target.style.opacity = '0';
-        anime({
-          targets: target,
-          opacity: 1,
-          duration: 1000,
-          easing: 'easeInOutQuad',
-        });
-      }
+    async sectionTransitionIn(selector: string, duration = 1000) {
+      return onSectionTransitionIn(selector, duration);
     },
-    async sectionTransitionOut(selector: string) {
-      const target = (await waitForElementLoaded(selector)) as HTMLElement;
-      console.log(target);
-      if (target) {
-        target.style.opacity = '1';
-        anime({
-          targets: target,
-          opacity: 0,
-          duration: 1000,
-          easing: 'easeInOutQuad',
-        });
-      }
+    async sectionTransitionOut(selector: string, duration = 1000) {
+      return onSectionTransitionOut(selector, duration);
     },
   } as App;
   createApp(app).mount('#app');
