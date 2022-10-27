@@ -1,12 +1,12 @@
 export default function wrapUp(score: number) {
   if (score > 74 && score <= 100) {
-    return 'a Digital Leader. Well done!';
+    return 'Digital Leader';
   }
   if (score > 49 && score <= 74) {
-    return 'a Digital Performer. Well done!';
+    return 'Digital Performer';
   }
   if (score > 24 && score <= 49) {
-    return 'a Digital Literate';
+    return 'Digital Literate';
   }
-  return 'a Digital Starter';
+  return 'Digital Starter';
 }

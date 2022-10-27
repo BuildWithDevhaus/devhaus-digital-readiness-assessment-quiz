@@ -1,17 +1,22 @@
-import { AnimationItem, LottiePlayer } from 'lottie-web';
+//import { AnimationItem, LottiePlayer } from 'lottie-web';
+import { AnimationItem } from 'lottie-web';
+import { LottiePlayer } from 'lottie-web';
 import type App from 'src/types/app';
 
 import waitForAnimationsLoaded from '$utils/animations/waitForAnimationsLoaded';
 
 export default async function onMounted(app: App, wf: Window['Webflow']) {
-  const loadingSection = document.querySelector('.loading-section') as HTMLElement;
+  //console.log(app.store.i);
+  const loadingSection = document.getElementById('loading-screen') as HTMLElement;
+  //console.log(loadingSection);
   const lottieee = wf?.require?.('lottie');
   const l = lottieee.lottie as LottiePlayer;
-  const anims = l.getRegisteredAnimations();
+  const anims = l.getRegisteredAnimations() as AnimationItem[];
   await waitForAnimationsLoaded(anims);
   const anim = anims.find((a) => {
-    return a.wrapper?.id === 'confetti';
+    return a.wrapper?.id === 'loading-lottie-wrapper';
   }) as AnimationItem;
+  // console.log(anim);
   anim.pause();
   app.animWrapper = anim.wrapper as HTMLElement;
   app.animConfetti = anim as AnimationItem;
@@ -28,12 +33,11 @@ export default async function onMounted(app: App, wf: Window['Webflow']) {
   window.addEventListener('resize', () => {
     app.setProgressBar();
   });
-
+  const baseDelay = 5005.004801146985;
   setTimeout(() => {
     loadingSection.style.opacity = '0';
-  }, 2000);
-
+  }, baseDelay);
   setTimeout(() => {
     loadingSection.style.display = 'none';
-  }, 2200);
+  }, baseDelay + 300);
 }

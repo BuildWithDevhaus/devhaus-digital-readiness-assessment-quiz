@@ -33,7 +33,7 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
   });
 
   //console.log(response);
-  setTimeout(() => {
+  setTimeout(async () => {
     if (response.status === 200) {
       triggerSegmentEvent('Digital Readiness Assessment Quiz Completed', {
         score: app.store.scorePercentage,
@@ -42,9 +42,10 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
       triggerSegmentIdentify({
         email: data.email,
       });
-      app.showEmailSection = false;
+      await app.sectionTransitionOut('#email-page', 750);
+
       app.quizFinished();
-      triggerSegmentEvent();
+      // triggerSegmentEvent();
     }
   }, 1000);
 }

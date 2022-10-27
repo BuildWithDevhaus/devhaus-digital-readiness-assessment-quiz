@@ -7,7 +7,9 @@ export const store = reactive({
   maxScorePercentage: 100,
   currentQuestion: '',
   progressBarWidth: 0,
-  i: 0,
+  answerSelected: -1,
+  i: -1,
+  showHalfway: false,
 });
 
 const questions = [
@@ -33,8 +35,8 @@ const questions = [
     type: 1,
     correctAnswer: 3,
     question: `Which tool could help you drive optimal results with a lean cost?`,
-    subQuestion: `Now we’re going cold and we’re going top funnel. 
-    You’re tasked to get new <b>cold leads</b> for your organisation via <b>sending out emails</b> 
+    subQuestion: `Now we’re going cold and we’re going top funnel.
+    You’re tasked to get new <b>cold leads</b> for your organisation via <b>sending out emails</b>
     to your target buyers and run ads in certain platform.`,
     answers: ['Mailchimp', 'Hubspot Sales Hub', 'Salesforce Sales Cloud', 'Mailshake'],
   },
@@ -46,7 +48,7 @@ const questions = [
   },
   {
     type: 1,
-    correctAnswer: 1,
+    correctAnswer: 0,
     question: `Which one of these tools will help you the most without coding?`,
     subQuestion: `<p>Now you’ll need to put on your Product Marketing hat.</p><br/>
     You need to classify different types of user segments based on your form submission funnels via a user journey funnel data visualisation tool.`,
@@ -82,7 +84,6 @@ export const initObject = {
   animWrapper: null as HTMLElement | null,
   animConfetti: null as AnimationItem | null,
   showNotes: false,
-  showHalfway: false,
   halfwayIsShown: false,
   currentQuestionIndex: 0,
   totalQuestions: 0,
