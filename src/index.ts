@@ -1,6 +1,8 @@
+import anime from 'animejs';
 import { createApp } from 'petite-vue';
 
 import triggerSegmentEvent from '$utils/Segment/triggerSegmentEvent';
+import waitForElementLoaded from '$utils/waitForElementLoaded';
 
 import { initObject, store } from './app/initApp';
 import onCheckAnswer from './app/onCheckAnswer';
@@ -19,11 +21,17 @@ wf.push(() => {
     store,
     ...initObject,
     async mounted() {
-      onMounted(this, wf);
+      onMounted(
+        this
+        // wf
+      );
+      await this.sectionTransitionIn('#first-page');
       triggerSegmentEvent('Digital Readiness Assessment Quiz Initiated', {});
     },
-    startQuiz() {
+    async startQuiz() {
+      await this.sectionTransitionOut('#first-page');
       this.showNotes = true;
+      await this.sectionTransitionIn('#second-page');
     },
     reallyStartQuiz() {
       this.mountQuestion(0);
@@ -32,8 +40,8 @@ wf.push(() => {
       this.store.scorePercentage = Math.round(this.store.scorePercentage);
       this.finalVerdict = wrapUp(this.store.scorePercentage);
     },
-    setProgressBar() {
-      onSetProgressBar(this);
+    async setProgressBar() {
+      await onSetProgressBar(this);
     },
     mountQuestion(index: number) {
       onMountQuestion(this, index);
@@ -42,9 +50,10 @@ wf.push(() => {
           question: this.questions[index].question,
         });
     },
-    closeHalfway() {
+    async closeHalfway() {
       this.showHalfway = false;
       this.halfwayIsShown = true;
+      await onSetProgressBar(this);
     },
     showConfetti() {
       onShowConfetti(this);
@@ -54,6 +63,32 @@ wf.push(() => {
     },
     async submitEmail(e: Event) {
       await onSubmit(this, e as SubmitEvent);
+    },
+    async sectionTransitionIn(selector: string) {
+      const target = (await waitForElementLoaded(selector)) as HTMLElement;
+      console.log(target);
+      if (target) {
+        target.style.opacity = '0';
+        anime({
+          targets: target,
+          opacity: 1,
+          duration: 1000,
+          easing: 'easeInOutQuad',
+        });
+      }
+    },
+    async sectionTransitionOut(selector: string) {
+      const target = (await waitForElementLoaded(selector)) as HTMLElement;
+      console.log(target);
+      if (target) {
+        target.style.opacity = '1';
+        anime({
+          targets: target,
+          opacity: 0,
+          duration: 1000,
+          easing: 'easeInOutQuad',
+        });
+      }
     },
   } as App;
   createApp(app).mount('#app');

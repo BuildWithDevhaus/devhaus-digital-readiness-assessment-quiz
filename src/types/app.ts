@@ -20,6 +20,8 @@ export default interface App {
   animConfetti: AnimationItem;
   questions: Question[];
   showEmailSection: boolean;
+  sectionTransitionIn(selector: string): Promise<void>;
+  sectionTransitionOut(selector: string): Promise<void>;
   startQuiz: () => void;
   reallyStartQuiz: () => void;
   quizFinished: () => void;
