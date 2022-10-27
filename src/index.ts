@@ -71,11 +71,11 @@ wf.push(() => {
       await onSubmit(this, e as SubmitEvent);
     },
     sectionTransitionIn(selector: string, duration = 1000) {
-      console.log('sectionTransitionIn', selector);
+      //console.log('sectionTransitionIn', selector);
       return onSectionTransitionIn(selector, duration);
     },
     sectionTransitionOut(selector: string, duration = 1000) {
-      console.log('sectionTransitionOut', selector);
+      //console.log('sectionTransitionOut', selector);
       return onSectionTransitionOut(selector, duration);
     },
   } as App;
