@@ -1,4 +1,15 @@
-# Finsweet Developer Starter
+# Devhaus Digital Readiness Assessment Quiz
+
+## Adding Code to Webflow
+
+Copy paste the code below
+
+```html
+<script
+  defer
+  src="https://cdn.jsdelivr.net/gh/davisdevhaus/devhaus-digital-readiness-assessment-quiz@1.1.1/dist/index.js"
+></script>
+```
 
 A starter template for both Client & Power projects.
 
@@ -6,20 +17,24 @@ Before starting to work with this template, please take some time to read throug
 
 ## Reference
 
-- [Included tools](#included-tools)
-- [Requirements](#requirements)
-- [Getting started](#getting-started)
-  - [Installing](#installing)
-  - [Building](#building)
+- [Devhaus Digital Readiness Assessment Quiz](#devhaus-digital-readiness-assessment-quiz)
+  - [Adding Code to Webflow](#adding-code-to-webflow)
+  - [Reference](#reference)
+  - [Included tools](#included-tools)
+  - [Requirements](#requirements)
+  - [Getting started](#getting-started)
+    - [Installing](#installing)
+    - [Building](#building)
     - [Serving files on development mode](#serving-files-on-development-mode)
     - [Building multiple files](#building-multiple-files)
     - [Setting up a path alias](#setting-up-a-path-alias)
-- [Contributing guide](#contributing-guide)
-- [Pre-defined scripts](#pre-defined-scripts)
-- [CI/CD](#cicd)
-  - [Continuous Integration](#continuous-integration)
-  - [Continuous Deployment](#continuous-deployment)
-  - [How to automatically deploy updates to npm](#how-to-automatically-deploy-updates-to-npm)
+  - [Testing](#testing)
+  - [Contributing guide](#contributing-guide)
+  - [Pre-defined scripts](#pre-defined-scripts)
+  - [CI/CD](#cicd)
+    - [Continuous Integration](#continuous-integration)
+    - [Continuous Deployment](#continuous-deployment)
+      - [How to automatically deploy updates to npm](#how-to-automatically-deploy-updates-to-npm)
 
 ## Included tools
 
