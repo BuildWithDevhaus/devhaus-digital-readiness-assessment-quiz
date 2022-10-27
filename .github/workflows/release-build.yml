@@ -1,22 +1,22 @@
-name: Build File in master Branch
-on:
-  push:
-    branches:
-      - master
-jobs:
-  build-file:
-    runs-on: ubuntu-latest
-    if: github.actor == 'davisdevhaus'
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g pnpm
-      - run: pnpm install
-      - run: pnpm build
-      - run: git add .
-      - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      - run: git config --global user.name "github-actions[bot]"
-      - run: git commit -m "[Automated] index.js build"
-      - run: git push origin master
+# name: Build File in master Branch
+# on:
+#   push:
+#     branches:
+#       - master
+# jobs:
+#   build-file:
+#     runs-on: ubuntu-latest
+#     if: github.actor == 'davisdevhaus'
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: '14'
+#       - run: npm install -g pnpm
+#       - run: pnpm install
+#       - run: pnpm build
+#       - run: git add .
+#       - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
+#       - run: git config --global user.name "github-actions[bot]"
+#       - run: git commit -m "[Automated] index.js build"
+#       - run: git push origin master
