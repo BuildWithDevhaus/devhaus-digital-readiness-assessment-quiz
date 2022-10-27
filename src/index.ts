@@ -42,16 +42,18 @@ wf.push(() => {
       this.store.scorePercentage = Math.round(this.store.scorePercentage);
       this.finalVerdict = wrapUp(this.store.scorePercentage);
     },
-    async setProgressBar() {
-      await onSetProgressBar(this);
+    setProgressBar() {
+      return onSetProgressBar(this);
     },
     async mountQuestion(index: number) {
       if (index === 0) {
-        onMountQuestion(this, index);
+        //first question
+        await onMountQuestion(this, index);
         await this.sectionTransitionIn('#quiz-page-question-0', 750);
       } else if (index > 0) {
+        //anything but first question
         await this.sectionTransitionOut(`#quiz-page`, 750);
-        onMountQuestion(this, index);
+        await onMountQuestion(this, index);
         //deselect all answers
         const answers = document.querySelectorAll(
           '.assess-quiz_answers-block'
@@ -63,14 +65,15 @@ wf.push(() => {
         this.store.answerSelected = -1;
         await this.sectionTransitionIn('#quiz-page', 750);
       }
+      await this.setProgressBar();
       if (index >= 0 && index < this.totalQuestions)
         triggerSegmentEvent(`Digital Readiness Assessment Quiz Question ${index + 1} Viewed`, {
           question: this.questions[index].question,
         });
     },
     async closeHalfway() {
-      this.showHalfway = false;
       this.halfwayIsShown = true;
+      this.showHalfway = false;
       await onSetProgressBar(this);
     },
     showConfetti() {

@@ -1,6 +1,6 @@
 import anime from 'animejs';
 
-export default function QuizPageQuestionTransitionIn(elem: HTMLElement, duration = 500) {
+export default function quizPageQuestionTransitionIn(elem: HTMLElement, duration = 500) {
   //use animejs
   //const tagline = elem.querySelector('#quiz-page-tagline') as HTMLElement;
   const question = elem.querySelector('#quiz-page-question') as HTMLElement;

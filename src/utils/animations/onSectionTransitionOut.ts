@@ -1,7 +1,7 @@
 import waitForElementLoaded from '$utils/waitForElementLoaded';
 
-import QuizPageQuestionTransitionOut from './sectionAnimations/QuizPageQuestionTransitionOut';
 import firstPageTransitionOut from './sectionAnimations/firstPageTransitionOut';
+import quizPageQuestionTransitionOut from './sectionAnimations/quizPageQuestionTransitionOut';
 import secondPageTransitionOut from './sectionAnimations/secondPageTransitionOut';
 
 export default async function onSectionTransitionOut(selector: string, duration: number) {
@@ -12,6 +12,6 @@ export default async function onSectionTransitionOut(selector: string, duration:
     case '#second-page':
       return secondPageTransitionOut(section, duration);
     case '#quiz-page':
-      return QuizPageQuestionTransitionOut(section, duration);
+      return quizPageQuestionTransitionOut(section, duration);
   }
 }

@@ -7,7 +7,7 @@ export default async function onSetProgressBar(app: App) {
   const progressBarBottom = await waitForElementLoaded('.assess-quiz_progress-bar');
   //get progress bar width
   const baseProgressBarWidth = progressBarBottom.clientWidth ?? 0; //100%
-
+  //console.log(progressBarBottom);
   const percentage = (app.store.i + 1) / app.totalQuestions;
   app.store.progressBarWidth = baseProgressBarWidth * percentage;
 }

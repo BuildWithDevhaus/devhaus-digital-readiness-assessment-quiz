@@ -26,7 +26,7 @@ export default interface App {
   startQuiz: () => void;
   reallyStartQuiz: () => void;
   quizFinished: () => void;
-  setProgressBar: () => void;
+  setProgressBar: () => Promise<void>;
   mountQuestion: (index: number) => void;
   closeHalfway: () => void;
   showConfetti: () => void;

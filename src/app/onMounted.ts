@@ -6,9 +6,9 @@ import type App from 'src/types/app';
 import waitForAnimationsLoaded from '$utils/animations/waitForAnimationsLoaded';
 
 export default async function onMounted(app: App, wf: Window['Webflow']) {
-  console.log(app.store.i);
+  //console.log(app.store.i);
   const loadingSection = document.getElementById('loading-screen') as HTMLElement;
-  console.log(loadingSection);
+  //console.log(loadingSection);
   const lottieee = wf?.require?.('lottie');
   const l = lottieee.lottie as LottiePlayer;
   const anims = l.getRegisteredAnimations() as AnimationItem[];
@@ -16,7 +16,7 @@ export default async function onMounted(app: App, wf: Window['Webflow']) {
   const anim = anims.find((a) => {
     return a.wrapper?.id === 'loading-lottie-wrapper';
   }) as AnimationItem;
-  console.log(anim);
+  // console.log(anim);
   anim.pause();
   app.animWrapper = anim.wrapper as HTMLElement;
   app.animConfetti = anim as AnimationItem;
