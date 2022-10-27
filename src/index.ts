@@ -38,43 +38,25 @@ wf.push(() => {
       await this.sectionTransitionOut('#second-page', 800);
       this.mountQuestion(0);
     },
-    quizFinished() {
+    async quizFinished() {
       this.store.scorePercentage = Math.round(this.store.scorePercentage);
       this.finalVerdict = wrapUp(this.store.scorePercentage);
+      this.showEmailSection = false;
+      await this.sectionTransitionIn('#final-page', 1000);
     },
     setProgressBar() {
-      return onSetProgressBar(this);
+      return onSetProgressBar(this, this.store.i);
     },
     async mountQuestion(index: number) {
-      if (index === 0) {
-        //first question
-        await onMountQuestion(this, index);
-        await this.sectionTransitionIn('#quiz-page-question-0', 750);
-      } else if (index > 0) {
-        //anything but first question
-        await this.sectionTransitionOut(`#quiz-page`, 750);
-        await onMountQuestion(this, index);
-        //deselect all answers
-        const answers = document.querySelectorAll(
-          '.assess-quiz_answers-block'
-        ) as NodeListOf<HTMLElement>;
-        answers.forEach((answer) => {
-          answer.classList.remove('is-selected');
-          answer.style.transform = 'translateX(0%)';
-        });
-        this.store.answerSelected = -1;
-        await this.sectionTransitionIn('#quiz-page', 750);
-      }
-      await this.setProgressBar();
-      if (index >= 0 && index < this.totalQuestions)
-        triggerSegmentEvent(`Digital Readiness Assessment Quiz Question ${index + 1} Viewed`, {
-          question: this.questions[index].question,
-        });
+      return onMountQuestion(this, index);
     },
     async closeHalfway() {
+      await this.sectionTransitionOut('#halfway-page', 750);
       this.halfwayIsShown = true;
-      this.showHalfway = false;
-      await onSetProgressBar(this);
+      this.store.showHalfway = false;
+      this.store.progressBarWidth = 0;
+      await app.sectionTransitionIn('#quiz-page-question-0', 750);
+      await this.setProgressBar();
     },
     showConfetti() {
       onShowConfetti(this);
@@ -89,9 +71,11 @@ wf.push(() => {
       await onSubmit(this, e as SubmitEvent);
     },
     sectionTransitionIn(selector: string, duration = 1000) {
+      console.log('sectionTransitionIn', selector);
       return onSectionTransitionIn(selector, duration);
     },
     sectionTransitionOut(selector: string, duration = 1000) {
+      console.log('sectionTransitionOut', selector);
       return onSectionTransitionOut(selector, duration);
     },
   } as App;

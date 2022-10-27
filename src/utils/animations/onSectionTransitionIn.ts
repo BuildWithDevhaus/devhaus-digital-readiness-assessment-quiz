@@ -1,5 +1,7 @@
 import waitForElementLoaded from '$utils/waitForElementLoaded';
 
+import emailPageTransitionIn from './sectionAnimations/emailPageTransitionIn';
+import finalPageTransitionIn from './sectionAnimations/finalPageTransitionIn';
 import firstPageTransitionIn from './sectionAnimations/firstPageTransitionIn';
 import halfwayPageTransitionIn from './sectionAnimations/halfwayPageTransitionIn';
 import quizPageFirstQuestionTransitionIn from './sectionAnimations/quizPageFirstQuestionTransitionIn';
@@ -21,5 +23,9 @@ export default async function onSectionTransitionIn(selector: string, duration: 
       return quizPageQuestionTransitionIn(section, duration);
     case '#halfway-page':
       return halfwayPageTransitionIn(section, duration);
+    case '#email-page':
+      return emailPageTransitionIn(section, duration);
+    default:
+      return finalPageTransitionIn(section, duration);
   }
 }

@@ -24,17 +24,20 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
   button.style.cursor = 'not-allowed';
   button.style.backgroundColor = '#e6e6e6';
 
-  const response = await fetch(webhookLink, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+  // const response = await fetch(webhookLink, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(data),
+  // });
 
   //console.log(response);
-  setTimeout(() => {
-    if (response.status === 200) {
+  setTimeout(async () => {
+    if (
+      //response.status === 200
+      true
+    ) {
       triggerSegmentEvent('Digital Readiness Assessment Quiz Completed', {
         score: app.store.scorePercentage,
         finalVerdict: app.finalVerdict,
@@ -42,7 +45,8 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
       triggerSegmentIdentify({
         email: data.email,
       });
-      app.showEmailSection = false;
+      await app.sectionTransitionOut('#email-page', 750);
+
       app.quizFinished();
       triggerSegmentEvent();
     }
