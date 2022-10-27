@@ -26,6 +26,7 @@ export default function QuizPageQuestionTransitionOut(elem: HTMLElement, duratio
       targets: [...answers, nextButton],
       translateX: [0, +100],
       opacity: [1, 0],
+      duration: duration / 2,
     },
     0
   );

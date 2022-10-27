@@ -14,7 +14,7 @@ export default function onCheckAnswer(event: MouseEvent, app: App, index: number
   ) as HTMLElement[];
   if (app.store.answerSelected > -1) {
     // if an answer is already selected
-    answers.forEach((elem) => elem.classList.remove('selected'));
+    answers.forEach((elem) => elem.classList.remove('is-selected'));
     let config = animeConfigDeselect(answers[app.store.answerSelected]);
     anime(config);
     //if the answer is already selected, deselect it
@@ -22,7 +22,7 @@ export default function onCheckAnswer(event: MouseEvent, app: App, index: number
     else {
       //else, if the answer is not already selected, select it
       app.store.answerSelected = index;
-      answers[index].classList.add('selected');
+      answers[index].classList.add('is-selected');
       config = animeConfigSelect(answers[index]);
       anime(config);
     }
@@ -30,7 +30,7 @@ export default function onCheckAnswer(event: MouseEvent, app: App, index: number
     //if no answer is selected, select it
     const config = animeConfigSelect(target);
     anime(config);
-    target.classList.add('selected');
+    target.classList.add('is-selected');
     app.store.answerSelected = index;
   }
 }

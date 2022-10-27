@@ -22,11 +22,11 @@ wf.push(() => {
     store,
     ...initObject,
     async mounted() {
-      onMounted(
-        this
-        // wf
+      onMounted(this, wf);
+      setTimeout(
+        async () => await this.sectionTransitionIn('#first-page', 1000),
+        5005.004801146985
       );
-      await this.sectionTransitionIn('#first-page', 1000);
       triggerSegmentEvent('Digital Readiness Assessment Quiz Initiated', {});
     },
     async startQuiz() {
@@ -49,7 +49,7 @@ wf.push(() => {
       if (index === 0) {
         onMountQuestion(this, index);
         await this.sectionTransitionIn('#quiz-page-question-0', 750);
-      } else {
+      } else if (index > 0) {
         await this.sectionTransitionOut(`#quiz-page`, 750);
         onMountQuestion(this, index);
         //deselect all answers
@@ -57,7 +57,7 @@ wf.push(() => {
           '.assess-quiz_answers-block'
         ) as NodeListOf<HTMLElement>;
         answers.forEach((answer) => {
-          answer.classList.remove('selected');
+          answer.classList.remove('is-selected');
           answer.style.transform = 'translateX(0%)';
         });
         this.store.answerSelected = -1;
