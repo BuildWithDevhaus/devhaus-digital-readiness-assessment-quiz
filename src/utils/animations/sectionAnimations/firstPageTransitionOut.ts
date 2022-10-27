@@ -13,5 +13,6 @@ export default function firstPageTransitionOut(elem: HTMLElement, duration = 500
     easing: 'easeOutExpo',
     duration,
   });
+
   return tl.finished;
 }

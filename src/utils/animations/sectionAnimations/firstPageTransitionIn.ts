@@ -10,6 +10,7 @@ export default function firstPageTransitionIn(elem: HTMLElement, duration = 1000
   const tl = anime.timeline({
     easing: 'easeOutExpo',
     duration,
+    delay: anime.stagger(100),
   });
   tl.add({
     targets: icon,
@@ -37,9 +38,8 @@ export default function firstPageTransitionIn(elem: HTMLElement, duration = 1000
         targets: button,
         translateX: [-30, 0],
         opacity: [0, 1],
-        duration: 200,
       },
-      '-=800'
+      '-=500'
     );
 
   return tl.finished;

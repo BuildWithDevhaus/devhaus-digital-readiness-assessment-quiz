@@ -8,6 +8,7 @@ import { initObject, store } from './app/initApp';
 import onCheckAnswer from './app/onCheckAnswer';
 import onMountQuestion from './app/onMountQuestion';
 import onMounted from './app/onMounted';
+import onNextQuestion from './app/onNextQuestion';
 import onSetProgressBar from './app/onSetProgressBar';
 import onShowConfetti from './app/onShowConfetti';
 import onSubmit from './app/onSubmit';
@@ -31,10 +32,10 @@ wf.push(() => {
     async startQuiz() {
       await this.sectionTransitionOut('#first-page', 1000);
       this.showNotes = true;
-      await this.sectionTransitionIn('#second-page', 1000);
+      await this.sectionTransitionIn('#second-page', 800);
     },
     async reallyStartQuiz() {
-      await this.sectionTransitionOut('#second-page', 2000);
+      await this.sectionTransitionOut('#second-page', 800);
       this.mountQuestion(0);
     },
     quizFinished() {
@@ -44,8 +45,24 @@ wf.push(() => {
     async setProgressBar() {
       await onSetProgressBar(this);
     },
-    mountQuestion(index: number) {
-      onMountQuestion(this, index);
+    async mountQuestion(index: number) {
+      if (index === 0) {
+        onMountQuestion(this, index);
+        await this.sectionTransitionIn('#quiz-page-question-0', 750);
+      } else {
+        await this.sectionTransitionOut(`#quiz-page`, 750);
+        onMountQuestion(this, index);
+        //deselect all answers
+        const answers = document.querySelectorAll(
+          '.assess-quiz_answers-block'
+        ) as NodeListOf<HTMLElement>;
+        answers.forEach((answer) => {
+          answer.classList.remove('selected');
+          answer.style.transform = 'translateX(0%)';
+        });
+        this.store.answerSelected = -1;
+        await this.sectionTransitionIn('#quiz-page', 750);
+      }
       if (index >= 0 && index < this.totalQuestions)
         triggerSegmentEvent(`Digital Readiness Assessment Quiz Question ${index + 1} Viewed`, {
           question: this.questions[index].question,
@@ -59,16 +76,19 @@ wf.push(() => {
     showConfetti() {
       onShowConfetti(this);
     },
-    checkAnswer(_: Event, index: number) {
-      onCheckAnswer(this, index);
+    checkAnswer(event: MouseEvent, index: number) {
+      onCheckAnswer(event, this, index);
+    },
+    nextQuestion(event: MouseEvent) {
+      onNextQuestion(event, this, this.store.answerSelected);
     },
     async submitEmail(e: Event) {
       await onSubmit(this, e as SubmitEvent);
     },
-    async sectionTransitionIn(selector: string, duration = 1000) {
+    sectionTransitionIn(selector: string, duration = 1000) {
       return onSectionTransitionIn(selector, duration);
     },
-    async sectionTransitionOut(selector: string, duration = 1000) {
+    sectionTransitionOut(selector: string, duration = 1000) {
       return onSectionTransitionOut(selector, duration);
     },
   } as App;

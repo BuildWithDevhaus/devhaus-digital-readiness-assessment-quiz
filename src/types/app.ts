@@ -11,6 +11,7 @@ export default interface App {
   totalQuestions: number;
   possibleMaxScore: number;
   store: {
+    answerSelected: number;
     scorePercentage: number;
     progressBarWidth: number;
     currentQuestion: string;
@@ -20,8 +21,8 @@ export default interface App {
   animConfetti: AnimationItem;
   questions: Question[];
   showEmailSection: boolean;
-  sectionTransitionIn(selector: string, duration: number): Promise<void>;
-  sectionTransitionOut(selector: string, duration: number): Promise<void>;
+  sectionTransitionIn(selector: string, duration?: number): Promise<void>;
+  sectionTransitionOut(selector: string, duration?: number): Promise<void>;
   startQuiz: () => void;
   reallyStartQuiz: () => void;
   quizFinished: () => void;
@@ -29,8 +30,9 @@ export default interface App {
   mountQuestion: (index: number) => void;
   closeHalfway: () => void;
   showConfetti: () => void;
-  checkAnswer: (_: Event, index: number) => void;
+  checkAnswer: (event: MouseEvent, index: number) => void;
   mounted: () => void;
   submitEmail: (e: Event) => void;
+  nextQuestion: (event: MouseEvent) => void;
   //this type is extendable
 }

@@ -7,6 +7,7 @@ export const store = reactive({
   maxScorePercentage: 100,
   currentQuestion: '',
   progressBarWidth: 0,
+  answerSelected: false,
   i: 0,
 });
 
