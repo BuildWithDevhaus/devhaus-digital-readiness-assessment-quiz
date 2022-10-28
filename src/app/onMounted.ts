@@ -29,8 +29,10 @@ export default async function onMounted(app: App, wf: Window['Webflow'], lottieD
   app.totalQuestions = app.questions.length;
   app.mountQuestion(-1);
   //on resize window, resize the progress bar
+  app.store.isMobile = window.innerWidth < 768;
   window.addEventListener('resize', () => {
     app.setProgressBar();
+    app.store.isMobile = window.innerWidth < 768;
   });
 
   setTimeout(() => {
