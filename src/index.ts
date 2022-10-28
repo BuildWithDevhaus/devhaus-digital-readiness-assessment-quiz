@@ -9,10 +9,10 @@ import onCheckAnswer from './app/onCheckAnswer';
 import onMountQuestion from './app/onMountQuestion';
 import onMounted from './app/onMounted';
 import onNextQuestion from './app/onNextQuestion';
+import onQuizFinished from './app/onQuizFinished';
 import onSetProgressBar from './app/onSetProgressBar';
 import onShowConfetti from './app/onShowConfetti';
 import onSubmit from './app/onSubmit';
-import wrapUp from './app/wrapUp';
 import type App from './types/app';
 
 const wf = window.Webflow || [];
@@ -22,16 +22,18 @@ wf.push(() => {
     store,
     ...initObject,
     async mounted() {
-      onMounted(this, wf);
+      const lottieDelay = 4900;
+      onMounted(this, wf, lottieDelay);
       setTimeout(
         async () => await this.sectionTransitionIn('#first-page', 1000),
-        5005.004801146985
+        lottieDelay - 100
       );
-      triggerSegmentEvent('Digital Readiness Assessment Quiz Initiated', {});
+      triggerSegmentEvent('Digital Readiness Assessment Quiz Start Page Viewed', {});
     },
     async startQuiz() {
       await this.sectionTransitionOut('#first-page', 1000);
       this.showNotes = true;
+      triggerSegmentEvent('Digital Readiness Assessment Quiz Scenario Page Viewed', {});
       await this.sectionTransitionIn('#second-page', 800);
     },
     async reallyStartQuiz() {
@@ -39,10 +41,7 @@ wf.push(() => {
       this.mountQuestion(0);
     },
     async quizFinished() {
-      this.store.scorePercentage = Math.round(this.store.scorePercentage);
-      this.finalVerdict = wrapUp(this.store.scorePercentage);
-      this.showEmailSection = false;
-      await this.sectionTransitionIn('#final-page', 1000);
+      await onQuizFinished(this);
     },
     setProgressBar() {
       return onSetProgressBar(this, this.store.i);
@@ -71,11 +70,9 @@ wf.push(() => {
       await onSubmit(this, e as SubmitEvent);
     },
     sectionTransitionIn(selector: string, duration = 1000) {
-      //console.log('sectionTransitionIn', selector);
       return onSectionTransitionIn(selector, duration);
     },
     sectionTransitionOut(selector: string, duration = 1000) {
-      //console.log('sectionTransitionOut', selector);
       return onSectionTransitionOut(selector, duration);
     },
   } as App;

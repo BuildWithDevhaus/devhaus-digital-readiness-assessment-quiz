@@ -1,7 +1,8 @@
 import App from 'src/types/app';
 
-import triggerSegmentEvent from '$utils/Segment/triggerSegmentEvent';
 import triggerSegmentIdentify from '$utils/Segment/triggerSegmentIdentify';
+
+import wrapUp from './wrapUp';
 
 export default async function onSubmit(app: App, event: SubmitEvent) {
   event.preventDefault();
@@ -10,13 +11,14 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
 
   const webhookLink = 'https://api-eu.customer.io/v1/webhook/31cc017bf937bd6f';
 
+  app.store.scorePercentage = Math.round(app.store.scorePercentage);
+  app.finalVerdict = wrapUp(app.store.scorePercentage);
+
   const data = {
     email: formData.get('email') as string,
     scorePercentage: app.store.scorePercentage,
     finalVerdict: app.finalVerdict,
   };
-
-  //console.log(data);
 
   const button = document.getElementById('quiz-result-submit-button') as HTMLButtonElement;
   button.value = 'Submitting...';
@@ -32,20 +34,13 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
     body: JSON.stringify(data),
   });
 
-  //console.log(response);
   setTimeout(async () => {
     if (response.status === 200) {
-      triggerSegmentEvent('Digital Readiness Assessment Quiz Completed', {
-        score: app.store.scorePercentage,
-        finalVerdict: app.finalVerdict,
-      });
       triggerSegmentIdentify({
         email: data.email,
       });
       await app.sectionTransitionOut('#email-page', 750);
-
       app.quizFinished();
-      // triggerSegmentEvent();
     }
   }, 1000);
 }
