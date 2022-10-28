@@ -50,16 +50,14 @@ const questions = [
     type: 1,
     correctAnswer: 0,
     question: `Which one of these tools will help you the most without coding?`,
-    subQuestion: `<p>Now you’ll need to put on your Product Marketing hat.</p><br/>
-    You need to classify different types of user segments based on your form submission funnels via a user journey funnel data visualisation tool.`,
+    subQuestion: `<b>Now you’ll need to put on your Product Marketing hat.</b> You need to classify different types of user segments based on your form submission funnels via a user journey funnel data visualisation tool.`,
     answers: ['Metabase', 'Heap', 'Google Analytics 4', 'Tableau', 'Segment'],
   },
   {
     type: 1,
     correctAnswer: 0,
     question: `Which of these tool will help you efficiently view your Marketing Data for free and without hassle on report building?`,
-    subQuestion: `<p><b>Now you’ll need to put on your Analyst hat.</b></p><br/>
-    You’ve been running some Meta & Google search ads for the company to drive awareness and acquisition to your organisation’s website.`,
+    subQuestion: `<b>Now you’ll need to put on your Analyst hat.</b> You’ve been running some Meta & Google search ads for the company to drive awareness and acquisition to your organisation’s website.`,
     answers: ['Snov.io', 'Google Data Studio', 'Pantone Notebook', 'Figma Jam'],
   },
   {
