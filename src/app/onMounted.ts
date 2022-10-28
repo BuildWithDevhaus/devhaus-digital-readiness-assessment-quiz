@@ -5,10 +5,9 @@ import type App from 'src/types/app';
 
 import waitForAnimationsLoaded from '$utils/animations/waitForAnimationsLoaded';
 
-export default async function onMounted(app: App, wf: Window['Webflow']) {
-  //console.log(app.store.i);
+export default async function onMounted(app: App, wf: Window['Webflow'], lottieDelay: number) {
   const loadingSection = document.getElementById('loading-screen') as HTMLElement;
-  //console.log(loadingSection);
+
   const lottieee = wf?.require?.('lottie');
   const l = lottieee.lottie as LottiePlayer;
   const anims = l.getRegisteredAnimations() as AnimationItem[];
@@ -16,8 +15,8 @@ export default async function onMounted(app: App, wf: Window['Webflow']) {
   const anim = anims.find((a) => {
     return a.wrapper?.id === 'loading-lottie-wrapper';
   }) as AnimationItem;
-  // console.log(anim);
-  anim.pause();
+
+  anim.goToAndPlay(0);
   app.animWrapper = anim.wrapper as HTMLElement;
   app.animConfetti = anim as AnimationItem;
   let currentPoints = 0;
@@ -33,11 +32,11 @@ export default async function onMounted(app: App, wf: Window['Webflow']) {
   window.addEventListener('resize', () => {
     app.setProgressBar();
   });
-  const baseDelay = 5005.004801146985;
+
   setTimeout(() => {
     loadingSection.style.opacity = '0';
-  }, baseDelay);
+  }, lottieDelay);
   setTimeout(() => {
     loadingSection.style.display = 'none';
-  }, baseDelay + 300);
+  }, lottieDelay + 300);
 }

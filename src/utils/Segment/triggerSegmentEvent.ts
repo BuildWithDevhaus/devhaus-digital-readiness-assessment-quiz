@@ -10,9 +10,6 @@ export default function triggerSegmentEvent(eventName = '', data = {}) {
     },
   };
   if (window?.analytics) {
-    //console.log(`Segment - ${eventName}`, dataSend);
     window?.analytics?.track(eventName, dataSend);
-  } else {
-    //console.log(`Segment - ${eventName} -- DEV MODE: `, dataSend);
   }
 }
