@@ -10,7 +10,12 @@ export default async function onQuizFinished(app: App, wf: Window['Webflow']) {
     quiz_verdict: app.finalVerdict,
   });
   app.showEmailSection = false;
-  await app.sectionTransitionIn('#final-page', 1000);
+  const lowerCaseVerdict =
+    app.store.finalVerdict?.toLowerCase?.().trim?.().replace?.(' ', '-') ?? 'digital-starter';
+  // console.log(lowerCaseVerdict);
+  const memoji = (await waitForElementLoaded(`#${lowerCaseVerdict}`)) as HTMLElement;
+  memoji.style.display = 'block';
+
   const social_platforms = [
     'facebook',
     'reddit',
@@ -20,11 +25,6 @@ export default async function onQuizFinished(app: App, wf: Window['Webflow']) {
     'telegram',
     'email',
   ];
-  const lowerCaseVerdict =
-    app.finalVerdict?.toLowerCase?.().trim?.().replace?.(' ', '-') ?? 'digital-starter';
-  console.log(lowerCaseVerdict);
-  const memoji = (await waitForElementLoaded(`${lowerCaseVerdict}-memoji`)) as HTMLElement;
-  memoji.style.display = 'block';
 
   social_platforms.forEach((platform) => {
     const shareButton = document.querySelector(`#${platform}-button`);
@@ -36,5 +36,6 @@ export default async function onQuizFinished(app: App, wf: Window['Webflow']) {
       });
     }
   });
+  await app.sectionTransitionIn('#final-page', 1000);
   await playConfetti(wf);
 }
