@@ -22,12 +22,8 @@ wf.push(() => {
     store,
     ...initObject,
     async mounted() {
-      const lottieDelay = 4900;
-      onMounted(this, wf, lottieDelay);
-      setTimeout(
-        async () => await this.sectionTransitionIn('#first-page', 1000),
-        lottieDelay - 100
-      );
+      const lottieDelay = 5200;
+      await onMounted(this, wf, lottieDelay);
       triggerSegmentEvent('Digital Readiness Assessment Quiz Start Page Viewed', {});
     },
     async startQuiz() {
@@ -41,13 +37,13 @@ wf.push(() => {
       this.mountQuestion(0);
     },
     async quizFinished() {
-      await onQuizFinished(this);
+      await onQuizFinished(this, wf);
     },
     setProgressBar() {
       return onSetProgressBar(this, this.store.i);
     },
     async mountQuestion(index: number) {
-      return onMountQuestion(this, index);
+      return onMountQuestion(this, index, wf);
     },
     async closeHalfway() {
       await this.sectionTransitionOut('#halfway-page', 750);

@@ -1,6 +1,7 @@
 import type App from 'src/types/app';
 
 import triggerSegmentEvent from '$utils/Segment/triggerSegmentEvent';
+import playConfetti from '$utils/animations/confetti/playConfetti';
 
 function triggerSegmentQuestionEvent(
   index: number, // 0-based
@@ -11,7 +12,7 @@ function triggerSegmentQuestionEvent(
   });
 }
 
-export default async function onMountQuestion(app: App, index: number) {
+export default async function onMountQuestion(app: App, index: number, wf: Window['Webflow']) {
   app.currentQuestionIndex = index;
   if (index === 0) {
     //first question
@@ -29,6 +30,7 @@ export default async function onMountQuestion(app: App, index: number) {
     app.store.currentQuestion = `Question ${index + 1} of ${app.totalQuestions}`;
     await app.sectionTransitionIn('#halfway-page', 750);
     await app.setProgressBar();
+    await playConfetti(wf);
   }
   if (index >= app.totalQuestions) {
     await app.sectionTransitionOut(`#quiz-page-last-question`, 750);

@@ -6,6 +6,7 @@ import wrapUp from './wrapUp';
 
 export default async function onSubmit(app: App, event: SubmitEvent) {
   event.preventDefault();
+  const devMode = false;
   const form = event.target as HTMLFormElement;
   const formData = new FormData(form);
 
@@ -26,16 +27,21 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
   button.style.cursor = 'not-allowed';
   button.style.backgroundColor = '#e6e6e6';
 
-  const response = await fetch(webhookLink, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+  let response: Response;
 
+  if (!devMode) {
+    response = await fetch(webhookLink, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+  }
   setTimeout(async () => {
-    if (response.status === 200) {
+    if (response?.status === 200 || devMode) {
+      //if (devMode) console.log(data);
+      app.store.finalVerdict = data.finalVerdict;
       triggerSegmentIdentify({
         email: data.email,
       });

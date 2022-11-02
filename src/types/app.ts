@@ -11,6 +11,7 @@ export default interface App {
     currentQuestion: string;
     i: number;
     showHalfway: boolean;
+    finalVerdict: string;
   };
   showNotes?: boolean;
   showHalfway?: boolean;
