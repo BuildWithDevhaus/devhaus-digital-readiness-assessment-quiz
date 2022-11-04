@@ -22,7 +22,6 @@ export default async function onMountQuestion(app: App, index: number, wf: Windo
 
     triggerSegmentQuestionEvent(index, app.questions[index].question);
   } else if (index + 1 === Math.round(app.totalQuestions / 2) && app.halfwayIsShown === false) {
-    await app.sectionTransitionOut(`#quiz-page-last-question`, 750);
     triggerSegmentEvent(`Digital Readiness Assessment Quiz Halfway Section Viewed`, {});
     app.store.showHalfway = true;
     app.store.i = index;
@@ -33,29 +32,31 @@ export default async function onMountQuestion(app: App, index: number, wf: Windo
     await playConfetti(wf);
   }
   if (index >= app.totalQuestions) {
-    await app.sectionTransitionOut(`#quiz-page-last-question`, 750);
     app.store.i = index;
     app.showEmailSection = true;
     await app.sectionTransitionIn('#email-page', 750);
     triggerSegmentEvent('Digital Readiness Assessment Quiz Email Page Viewed', {});
-    //app.quizFinished();
   } else if (index > 0 && index < app.totalQuestions) {
     //anything but first question
-    await app.sectionTransitionOut(`#quiz-page`, 750);
 
     app.store.i = index;
     triggerSegmentQuestionEvent(index, app.questions[index].question);
     //deselect all answers
-    const answers = document.querySelectorAll(
-      '.assess-quiz_answers-block'
-    ) as NodeListOf<HTMLElement>;
-    answers.forEach((answer) => {
-      answer.classList.remove('is-selected');
-      answer.style.transform = 'translateX(0%)';
-    });
-    app.store.answerSelected = -1;
+    deselectAllAnswers(app, index);
+
     if (index + 1 !== Math.round(app.totalQuestions / 2))
       await app.sectionTransitionIn('#quiz-page', 750);
     await app.setProgressBar();
   }
+}
+
+function deselectAllAnswers(app: App, currentIndex: number) {
+  const answers = document.querySelectorAll(
+    '.assess-quiz_answers-block'
+  ) as NodeListOf<HTMLElement>;
+  answers.forEach((answer) => {
+    answer.classList.remove('is-selected');
+    answer.style.transform = 'translateX(0%)';
+  });
+  app.store.answerSelected = app.questions[currentIndex]?.type === 2 ? [] : -1;
 }

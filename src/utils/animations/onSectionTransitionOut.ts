@@ -1,6 +1,7 @@
 import waitForElementLoaded from '$utils/waitForElementLoaded';
 
 import emailPageTransitionOut from './sectionAnimations/emailPageTransitionOut';
+import finalPageTransitionOut from './sectionAnimations/finalPageTransitionOut';
 import firstPageTransitionOut from './sectionAnimations/firstPageTransitionOut';
 import halfwayPageTransitionOut from './sectionAnimations/halfwayPageTransitionOut';
 import quizPageLastQuestionTransitionOut from './sectionAnimations/quizPageLastQuestionTransitionOut';
@@ -24,5 +25,7 @@ export default async function onSectionTransitionOut(selector: string, duration:
       return quizPageLastQuestionTransitionOut(section, duration);
     case '#email-page':
       return emailPageTransitionOut(section, duration);
+    case '#final-page':
+      return finalPageTransitionOut(section, duration);
   }
 }

@@ -13,14 +13,15 @@ import onQuizFinished from './app/onQuizFinished';
 import onSetProgressBar from './app/onSetProgressBar';
 import onShowConfetti from './app/onShowConfetti';
 import onSubmit from './app/onSubmit';
+import onTryAgain from './app/onTryAgain';
 import type App from './types/app';
+
+// see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 
 const wf = window.Webflow || [];
 let app: App;
 wf.push(() => {
   app = {
-    store,
-    ...initObject,
     async mounted() {
       const lottieDelay = 5200;
       await onMounted(this, wf, lottieDelay);
@@ -59,11 +60,14 @@ wf.push(() => {
     checkAnswer(event: MouseEvent, index: number) {
       onCheckAnswer(event, this, index);
     },
-    nextQuestion(event: MouseEvent) {
-      onNextQuestion(event, this, this.store.answerSelected);
+    async nextQuestion(event: MouseEvent) {
+      await onNextQuestion(event, this, this.store.answerSelected);
     },
     async submitEmail(e: Event) {
       await onSubmit(this, e as SubmitEvent);
+    },
+    async tryAgain() {
+      await onTryAgain(this);
     },
     sectionTransitionIn(selector: string, duration = 1000) {
       return onSectionTransitionIn(selector, duration);
@@ -71,6 +75,8 @@ wf.push(() => {
     sectionTransitionOut(selector: string, duration = 1000) {
       return onSectionTransitionOut(selector, duration);
     },
+    store,
+    ...initObject,
   } as App;
   createApp(app).mount('#app');
 });

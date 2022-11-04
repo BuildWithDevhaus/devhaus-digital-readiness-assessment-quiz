@@ -13,17 +13,8 @@ export default async function onMounted(app: App, wf: Window['Webflow'], lottieD
   anim.goToAndPlay(0);
   app.animWrapper = anim.wrapper as HTMLElement;
   app.animConfetti = anim as AnimationItem;
-  let currentPoints = 0;
-  app.questions.forEach((q) => {
-    if (q.type === 1 || q.type === 2) currentPoints += 1;
-    if (q.type === 3) currentPoints += 4;
-    if (q.type === 4) currentPoints += 2;
-  });
-  app.possibleMaxScore = currentPoints;
-  app.totalQuestions = app.questions.length;
+
   app.mountQuestion(-1);
-  //on resize window, resize the progress bar
-  app.store.isMobile = window.innerWidth < 768;
   window.addEventListener('resize', () => {
     app.setProgressBar();
     app.store.isMobile = window.innerWidth < 768;

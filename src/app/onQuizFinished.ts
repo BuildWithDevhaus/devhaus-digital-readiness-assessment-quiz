@@ -7,13 +7,10 @@ import waitForElementLoaded from '$utils/waitForElementLoaded';
 export default async function onQuizFinished(app: App, wf: Window['Webflow']) {
   triggerSegmentEvent('Digital Readiness Assessment Quiz Completed', {
     quiz_score: app.store.scorePercentage,
-    quiz_verdict: app.finalVerdict,
   });
   app.showEmailSection = false;
-  const lowerCaseVerdict =
-    app.store.finalVerdict?.toLowerCase?.().trim?.().replace?.(' ', '-') ?? 'digital-starter';
   // console.log(lowerCaseVerdict);
-  const memoji = (await waitForElementLoaded(`#${lowerCaseVerdict}`)) as HTMLElement;
+  const memoji = (await waitForElementLoaded(`#category-${app.finalCategory}`)) as HTMLElement;
   memoji.style.display = 'block';
 
   const social_platforms = [

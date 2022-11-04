@@ -3,15 +3,21 @@ import Question from 'src/types/question';
 const questions: Question[] = [
   {
     type: 1,
-    correctAnswer: 0,
+    correctAnswer: 1,
     question:
-      'Which type of tools could help you the most by saving you cost and delivering you the most optimal results?',
-    answers: ['CDP', 'CRM', 'Product Analytics', 'Marketing Automation'],
+      'Which one of these tools helps you <u>best</u> understand how users engage on your online platforms*?',
+    subQuestion: `Being able to understand how users engages with your platform can provide key insights on which page, 
+    content, or section has the highest user interaction. This will help you with “Conversion Rate Optimisation” and “A/B Testing” efforts.
+    <br />
+    *Online Platforms = Website, App, etc`,
+    answers: ['Snowflake', 'Mixpanel', 'Surveymonkey', 'Tableau'],
   },
   {
     type: 1,
     correctAnswer: 2,
-    question: `This tool helps collect and unify 1st party data, it’s called a CDP but <u>what is a CDP?</u>`,
+    question: `What is a CDP?`,
+    subQuestion: `This tool can help you unify your first-party data 
+    from multiple sources to help you create targeted personas and personalise marketing campaigns<b> at scale</u>.`,
     answers: [
       'Customer Date Platform',
       'Crisis Data Platform',
@@ -22,10 +28,9 @@ const questions: Question[] = [
   {
     type: 1,
     correctAnswer: 3,
-    question: `Which tool could help you drive optimal results with a lean cost?`,
-    subQuestion: `Now we’re going cold and we’re going top funnel.
-        You’re tasked to get new <b>cold leads</b> for your organisation via <b>sending out emails</b>
-        to your target buyers and run ads in certain platform.`,
+    question: `Which one of these tools could help you drive optimal results from your outbound email campaigns?`,
+    subQuestion: `Now we’re going cold and we’re going top funnel. 
+    You’re tasked to get new cold leads for your organisation via sending out emails to your target buyers and run ads in certain platform.`,
     answers: ['Mailchimp', 'Hubspot Sales Hub', 'Salesforce Sales Cloud', 'Mailshake'],
   },
   {
@@ -36,22 +41,22 @@ const questions: Question[] = [
   },
   {
     type: 1,
-    correctAnswer: 0,
-    question: `Which one of these tools will help you the most without coding?`,
-    subQuestion: `<b>Now you’ll need to put on your Product Marketing hat.</b> You need to classify different types of user segments based on your form submission funnels via a user journey funnel data visualisation tool.`,
-    answers: ['Metabase', 'Heap', 'Google Analytics 4', 'Tableau', 'Segment'],
+    correctAnswer: 2,
+    question: `Which one of these tools will help you gain the most cohort insights on your marketing campaign performance?`,
+    subQuestion: `Now you’ll need to put on your Product Marketing hat. <br/>A bit of a clue for you, we’re assessing your understanding of legacy Marketing Analytics vs Product Analytics tools.`,
+    answers: ['Google BigQuery', 'Tableau', 'Mixpanel', 'Segment', 'Crazy Egg'],
   },
   {
     type: 1,
-    correctAnswer: 0,
-    question: `Which of these tool will help you efficiently view your Marketing Data for free and without hassle on report building?`,
+    correctAnswer: 1,
+    question: `Which of these tool will help you efficiently build and view your Marketing ROAS reports for free?`,
     subQuestion: `<b>Now you’ll need to put on your Analyst hat.</b> You’ve been running some Meta & Google search ads for the company to drive awareness and acquisition to your organisation’s website.`,
-    answers: ['Snov.io', 'Google Data Studio', 'Pantone Notebook', 'Figma Jam'],
+    answers: ['Snov.io', 'Looker Studio', 'RedBricks', 'AirDNA', 'DataDog'],
   },
   {
-    type: 1,
-    correctAnswer: 3,
-    question: `Which one of these Frameworks/Funnel are used by modern day Growth teams to scale their organisation?`,
+    type: 2,
+    correctAnswer: [1, 2, 3],
+    question: `Which one of these Frameworks/Funnel are used by modern day Growth teams to scale their organisation?<br/><u>Select all that apply.</u>`,
     answers: ['DCF Framework', 'Pirate Funnel', 'AIDA Funnel', 'RACE Framework'],
   },
   {

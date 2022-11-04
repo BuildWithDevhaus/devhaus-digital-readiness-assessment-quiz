@@ -5,7 +5,7 @@ import Question from './question';
 export default interface App {
   store: {
     isMobile: boolean;
-    answerSelected: number;
+    answerSelected: number | Array<number>;
     scorePercentage: number;
     progressBarWidth: number;
     currentQuestion: string;
@@ -17,6 +17,8 @@ export default interface App {
   showHalfway?: boolean;
   halfwayIsShown?: boolean;
   finalVerdict?: string;
+  finalSubVerdict?: string;
+  finalCategory?: number;
   currentQuestionIndex?: number;
   totalQuestions: number;
   possibleMaxScore: number;
@@ -37,5 +39,6 @@ export default interface App {
   mounted?: () => void;
   submitEmail?: (e?: Event) => void;
   nextQuestion?: (event?: MouseEvent) => void;
+  tryAgain?: () => void;
   //this type is extendable
 }
