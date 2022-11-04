@@ -5,7 +5,7 @@ import Question from './question';
 export default interface App {
   store: {
     isMobile: boolean;
-    answerSelected: number;
+    answerSelected: number | Array<number>;
     scorePercentage: number;
     progressBarWidth: number;
     currentQuestion: string;

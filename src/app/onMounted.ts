@@ -15,9 +15,8 @@ export default async function onMounted(app: App, wf: Window['Webflow'], lottieD
   app.animConfetti = anim as AnimationItem;
   let currentPoints = 0;
   app.questions.forEach((q) => {
-    if (q.type === 1 || q.type === 2) currentPoints += 1;
-    if (q.type === 3) currentPoints += 4;
-    if (q.type === 4) currentPoints += 2;
+    if (q.type === 1) currentPoints += 1;
+    if (q.type === 2) currentPoints += (q.correctAnswer as Array<number>).length;
   });
   app.possibleMaxScore = currentPoints;
   app.totalQuestions = app.questions.length;

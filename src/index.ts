@@ -59,8 +59,8 @@ wf.push(() => {
     checkAnswer(event: MouseEvent, index: number) {
       onCheckAnswer(event, this, index);
     },
-    nextQuestion(event: MouseEvent) {
-      onNextQuestion(event, this, this.store.answerSelected);
+    async nextQuestion(event: MouseEvent) {
+      await onNextQuestion(event, this, this.store.answerSelected);
     },
     async submitEmail(e: Event) {
       await onSubmit(this, e as SubmitEvent);
