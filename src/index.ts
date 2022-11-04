@@ -13,6 +13,7 @@ import onQuizFinished from './app/onQuizFinished';
 import onSetProgressBar from './app/onSetProgressBar';
 import onShowConfetti from './app/onShowConfetti';
 import onSubmit from './app/onSubmit';
+import onTryAgain from './app/onTryAgain';
 import type App from './types/app';
 
 const wf = window.Webflow || [];
@@ -64,6 +65,9 @@ wf.push(() => {
     },
     async submitEmail(e: Event) {
       await onSubmit(this, e as SubmitEvent);
+    },
+    async tryAgain() {
+      await onTryAgain(this);
     },
     sectionTransitionIn(selector: string, duration = 1000) {
       return onSectionTransitionIn(selector, duration);

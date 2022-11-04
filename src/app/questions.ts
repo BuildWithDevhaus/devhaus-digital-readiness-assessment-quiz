@@ -7,7 +7,7 @@ const questions: Question[] = [
     question:
       'Which one of these tools helps you <u>best</u> understand how users engage on your online platforms*?',
     subQuestion: `Being able to understand how users engages with your platform can provide key insights on which page, 
-    content or section has the highest user interaction. This helps you with “Conversion Rate Optimisation” and “A/B testing efforts”.
+    content, or section has the highest user interaction. This will help you with “Conversion Rate Optimisation” and “A/B Testing” efforts.
     <br />
     *Online Platforms = Website, App, etc`,
     answers: ['Snowflake', 'Mixpanel', 'Surveymonkey', 'Tableau'],

@@ -2,23 +2,24 @@ import App from 'src/types/app';
 
 import triggerSegmentIdentify from '$utils/Segment/triggerSegmentIdentify';
 
-import wrapUp from './wrapUp';
+import countScoreAndVerdict from './countScoreAndVerdict';
 
 export default async function onSubmit(app: App, event: SubmitEvent) {
   event.preventDefault();
-  const devMode = false;
+  const devMode = true;
   const form = event.target as HTMLFormElement;
   const formData = new FormData(form);
 
   const webhookLink = 'https://api-eu.customer.io/v1/webhook/31cc017bf937bd6f';
 
-  app.store.scorePercentage = Math.round(app.store.scorePercentage);
-  app.finalVerdict = wrapUp(app.store.scorePercentage);
+  //-------- score counting here --------//
+  countScoreAndVerdict(app);
+  //-------- score counting done --------//
 
   const data = {
     email: formData.get('email') as string,
     scorePercentage: app.store.scorePercentage,
-    finalVerdict: app.finalVerdict,
+    finalCategory: app.finalCategory,
   };
 
   const button = document.getElementById('quiz-result-submit-button') as HTMLButtonElement;
@@ -41,7 +42,7 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
   setTimeout(async () => {
     if (response?.status === 200 || devMode) {
       //if (devMode) console.log(data);
-      app.store.finalVerdict = data.finalVerdict;
+      //app.store.finalVerdict = app.finalVerdict;
       triggerSegmentIdentify({
         email: data.email,
       });
