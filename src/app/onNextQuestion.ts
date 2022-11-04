@@ -23,6 +23,8 @@ export default async function onNextQuestion(
       }
     });
   }
+  // console.log(app.store.scorePercentage, 'scorePercentage');
+
   //do a transition out based on next index
   if (
     app.store.i + 1 === app.questions.length ||

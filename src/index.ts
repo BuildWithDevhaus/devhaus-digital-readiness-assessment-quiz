@@ -16,12 +16,12 @@ import onSubmit from './app/onSubmit';
 import onTryAgain from './app/onTryAgain';
 import type App from './types/app';
 
+// see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+
 const wf = window.Webflow || [];
 let app: App;
 wf.push(() => {
   app = {
-    store,
-    ...initObject,
     async mounted() {
       const lottieDelay = 5200;
       await onMounted(this, wf, lottieDelay);
@@ -75,6 +75,8 @@ wf.push(() => {
     sectionTransitionOut(selector: string, duration = 1000) {
       return onSectionTransitionOut(selector, duration);
     },
+    store,
+    ...initObject,
   } as App;
   createApp(app).mount('#app');
 });
