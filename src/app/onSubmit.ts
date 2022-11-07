@@ -11,7 +11,7 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
   const form = event.target as HTMLFormElement;
   const formData = new FormData(form);
 
-  const webhookLink = 'https://api.customer.io/v1/webhook/08e738f87d98f89a';
+  const webhookLink = `https://api.customer.io/v1/webhook/08e738f87d98f89a`;
 
   //-------- score counting here --------//
   countScoreAndVerdict(app);
