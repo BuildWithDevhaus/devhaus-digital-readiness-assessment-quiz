@@ -5,18 +5,24 @@ export default async function onNextQuestion(
   app: App,
   index: number | Array<number>
 ) {
-  if (index === -1) {
+  const question = app.questions[app.store.i];
+  const questionType = app.questions[app.store.i].type;
+
+  if (
+    (questionType === 2 && (index as Array<number>).length === 0) ||
+    (questionType === 1 && index === -1)
+  ) {
     return;
   }
-  if (app.questions[app.store.i].type === 1) {
-    if (index === app.questions[app.store.i].correctAnswer) {
+  if (questionType === 1) {
+    if (index === question.correctAnswer) {
       app.store.scorePercentage += (1 / app.possibleMaxScore) * 100;
     }
-  } else if (app.questions[app.store.i].type === 2) {
+  } else if (questionType === 2) {
     //select all that apply
     // for each correct answer, if it is selected, add 1 to the score
     (index as Array<number>).forEach((i) => {
-      if ((app.questions[app.store.i].correctAnswer as Array<number>).includes(i)) {
+      if ((question.correctAnswer as Array<number>).includes(i)) {
         app.store.scorePercentage += (1 / app.possibleMaxScore) * 100;
       } else {
         app.store.scorePercentage -= (1 / app.possibleMaxScore) * 100;
