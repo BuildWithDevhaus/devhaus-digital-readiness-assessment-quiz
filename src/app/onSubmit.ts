@@ -11,7 +11,7 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
   const form = event.target as HTMLFormElement;
   const formData = new FormData(form);
 
-  const webhookLink = 'https://api-eu.customer.io/v1/webhook/31cc017bf937bd6f';
+  const webhookLink = 'https://api.customer.io/v1/webhook/08e738f87d98f89a';
 
   //-------- score counting here --------//
   countScoreAndVerdict(app);
@@ -22,7 +22,7 @@ export default async function onSubmit(app: App, event: SubmitEvent) {
     scorePercentage: app.store.scorePercentage,
     finalCategory: app.finalCategory,
     finalVerdict: app.finalVerdict,
-    note: `Score between 0 and 62; category = 1. between 63 and 99; category = 2, and 100 is category 3.`,
+    note: `Score between 0 and 62 is finalCategory = 1; between 63 and 99 is finalCategory = 2; and 100 is finalCategory = 3.`,
   };
 
   const button = document.getElementById('quiz-result-submit-button') as HTMLButtonElement;
