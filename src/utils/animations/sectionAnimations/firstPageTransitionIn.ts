@@ -5,7 +5,7 @@ export default function firstPageTransitionIn(elem: HTMLElement, duration = 1000
   const icon = elem.querySelector('#first-page-icon') as HTMLElement;
   const title = elem.querySelector('#first-page-title') as HTMLElement;
   const subtitle = elem.querySelector('#first-page-subtitle') as HTMLElement;
-  const button = elem.querySelector('a') as HTMLElement;
+  const button = elem.querySelector('#first-page-button') as HTMLElement;
 
   const tl = anime.timeline({
     easing: 'easeOutExpo',
